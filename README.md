@@ -2,11 +2,11 @@
 this git is the notes that while watching the youtube video of Corey Schafer.
 https://www.youtube.com/watch?v=QnDWIZuWYW0&index=1&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH
 
-# basic
-## main.py
+## basic
+### main.py
 a simple code with route the website in more than one path
  
-## main3.py
+### main3.py
 a simple code that created the dummy data with list of dictionary,
 and return the data, looping those by using jinja2 in html
 and return the title name also

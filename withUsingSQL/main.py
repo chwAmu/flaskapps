@@ -4,31 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from forms import RegistrationForm,LoginForm
 app = Flask(__name__)
 
-'''
-manual to create db
-cd to your directory
-open python3 terminal 
-from main import db
-db.create_all() #to create the database that call site.debug
-from main import User,Post
-user_1=User(useranme='user',email='user@user.com',password='user')
-db.session.add(user_1)
-db.session.commit()
-User.query.all()
-User.query.first()
-User.query.filter_by(username='?').all()
-User.query.filter_by(username='?').first()
-user1=User.query.filter_by(username='?').first()
-user.id
-user.password
-user=User.query.get(2)#id
-post_1=Post(title='Blog1',content='First blog',user_id=user.id)
-post.author
-delete data 
-db.drop_all()
-db.create_all()
-'''
-
 
 #create a secrets key
 #import secrets

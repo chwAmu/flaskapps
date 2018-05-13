@@ -16,3 +16,27 @@ and using {% block content%}{% endblock %} to config the global area
 ## basic_with_boostrap
 a simple code for using boostrap library, flask url_for libraray,
 and how to arrange the files in flask.
+
+# forms and input 
+a code that create the user log-in or reg pages
+
+flask_wtf to create the form
+- StringField
+- PasswordField
+- SubmitField
+- BooleanField
+
+flask_wtf.validators to check the data
+- DataRequired
+- Length
+- Email
+- EqualTo
+- min
+- max
+
+using build-in secrets modules to create the sercets key 
+import secrets
+secrets.token_hex(16)
+
+using flash to flash a new message while user login/reg
+using redirect to redirect the web-pages while user login/reg

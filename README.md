@@ -17,7 +17,7 @@ and using {% block content%}{% endblock %} to config the global area
 a simple code for using boostrap library, flask url_for libraray,
 and how to arrange the files in flask.
 
-# forms and input 
+## forms and input 
 a code that create the user log-in or reg pages
 
 flask_wtf to create the form
@@ -40,3 +40,31 @@ secrets.token_hex(16)
 
 using flash to flash a new message while user login/reg
 using redirect to redirect the web-pages while user login/reg
+
+## usingWithSQL
+pip3 install sqlalchemy to install the using modules
+manual to create db
+cd to your directory
+open python3 terminal 
+from main import db
+db.create_all() #to create the database that call site.debug
+from main import User,Post
+user_1=User(useranme='user',email='user@user.com',password='user')
+db.session.add(user_1)
+db.session.commit()
+User.query.all()
+User.query.first()
+User.query.filter_by(username='?').all()
+User.query.filter_by(username='?').first()
+user1=User.query.filter_by(username='?').first()
+user.id
+user.password
+user=User.query.get(2)#id
+post_1=Post(title='Blog1',content='First blog',user_id=user.id)
+post.author
+delete data 
+db.drop_all()
+db.create_all()
+
+
+

@@ -66,5 +66,8 @@ delete data
 db.drop_all()
 db.create_all()
 
-
+## withUsingSQL_Modules
+group all the stuff into packages
+main.py-->run.py
+create a flaskblog folder
 

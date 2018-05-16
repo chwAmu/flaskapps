@@ -4,19 +4,6 @@ from flask import render_template,url_for,flash,redirect,request
 from flaskblog.forms import RegistrationForm,LoginForm
 from flask_login import login_user,current_user,logout_user,login_required
 
-#pip3 install flask-bcrypt
-#open the python3 terminal
-#from flask_bcrypt import Bcrypt
-#bcrypt=Bcrypt
-#crypt.generate_password_hash('testing')
-#crypt.generate_password_hash('testing').decode('utf-8')
-#hashed_pw=crypt.generate_password_hash('testing').decode('utf-8')
-#check password
-#bcrypt.check_password_hash(hashed_pw,'password')
-#it should be False
-#bcrypt.check_password_hash(hashed_pw,'testing')
-#it should be True
-#pip3 install flask-login
 
 #create a dummy data dictionary of list
 posts=[
@@ -74,7 +61,6 @@ def login():
 	form=LoginForm()
 	#if sumbit is pressed in the login page
 	if form.validate_on_submit():
-		# just using a dummy data
 		user=User.query.filter_by(email=form.email.data).first()
 		if user and bcrypt.check_password_hash(user.password,form.password.data):
 			login_user(user,form.remember.data)

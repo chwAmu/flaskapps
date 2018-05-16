@@ -71,3 +71,57 @@ group all the stuff into packages
 main.py-->run.py
 create a flaskblog folder
 
+## WithuserAuthentication
+an example for user authentication
+### flask-bcrypt library to hash the userpassword
+pip3 install flask-bcrypt
+then open the python3 terminal, test the function first
+
+>>>from flask_bcrypt import Bcrypt
+>>>bcrypt=Bcrypt
+>>>crypt.generate_password_hash('testing')
+>>>crypt.generate_password_hash('testing').decode('utf-8')
+>>>hashed_pw=crypt.generate_password_hash('testing').decode('utf-8')
+how to check password?
+>>>bcrypt.check_password_hash(hashed_pw,'password')
+>>>False
+bcrypt.check_password_hash(hashed_pw,'testing')
+>>>True
+
+### using the flask-login modules to control the login/logout function
+pip3 install flask-login
+from flask_login import LoginManager
+from flask_login import login_user,current_user,logout_user,login_required
+
+-login_user to login
+-current_user to get the current user name
+-logout_user to logout
+-login_required to protect the route can only aceess after login
+
+### using flask request modules to get the parameters
+from flask import request
+before login if the guys try to access the account routes
+http://localhost:5000/login?next=%2Faccount
+we can just take the parameters 'next'
+next_page=request.args.get('next')
+
+not only just need to login and also assing the route of login
+login_manager.login_view='login'
+login is the function name of route
+
+login_manager.login_message_category='info'
+you can styling the message.
+
+current_user.is_authenticated 
+to check the user is logined or not
+
+### create your ouwn validation error
+form weforms.validators import ValidationError
+	def validate_username(self,username):
+		user=User.query.filter_by(username=username.data).first()
+		if user:
+			raise ValidationError('that username is taken.')
+to raise the error if the user is existed while create a new account.
+
+
+

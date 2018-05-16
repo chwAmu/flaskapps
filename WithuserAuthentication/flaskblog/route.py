@@ -1,7 +1,8 @@
 from flaskblog.models import User,Post
 from flaskblog import app,db,bcrypt
-from flask import render_template,url_for,flash,redirect
+from flask import render_template,url_for,flash,redirect,request
 from flaskblog.forms import RegistrationForm,LoginForm
+from flask_login import login_user,current_user,logout_user,login_required
 
 #pip3 install flask-bcrypt
 #open the python3 terminal
@@ -15,6 +16,7 @@ from flaskblog.forms import RegistrationForm,LoginForm
 #it should be False
 #bcrypt.check_password_hash(hashed_pw,'testing')
 #it should be True
+#pip3 install flask-login
 
 #create a dummy data dictionary of list
 posts=[
@@ -46,28 +48,55 @@ def about():
 
 @app.route("/register",methods=['GET','POST'])
 def register():
+	# if user is logged in
+	if current_user.is_authenticated:
+		return redirect(url_for('home'))
+
 	form=RegistrationForm()
 	# if sumbit is pressed in the Registration pages
 	if form.validate_on_submit():
-		hashed_password=bcrypt.generate_passowrd_hash(form.password.data).decode('utf-8')
-		user=User(username=form.user.data,email=form.email.data,password=hashed_password)
+		# generate a hash password
+		hashed_password=bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+		# add to database
+		user=User(username=form.username.data,email=form.email.data,password=hashed_password)
 		db.session.add(user)
-		db.session.commint()
+		db.session.commit()
 		flash('you had created the account!please engjoy!','success')
 		return redirect(url_for('login'))
 	return render_template('register.html',title='Register',form=form)
 
 @app.route("/login",methods=['GET','POST'])
 def login():
+
+	if current_user.is_authenticated:
+		return redirect(url_for('home'))
+
 	form=LoginForm()
 	#if sumbit is pressed in the login page
 	if form.validate_on_submit():
 		# just using a dummy data
-		if form.email.data =='admin@login.com' and form.password.data=='password':
-			# login ok
-			flash('You have been logged in!','success')
-			return redirect(url_for('home'))
+		user=User.query.filter_by(email=form.email.data).first()
+		if user and bcrypt.check_password_hash(user.password,form.password.data):
+			login_user(user,form.remember.data)
+			# http://localhost:5000/login?next=%2Faccount
+			# if the guys click the page before login
+			next_page=request.args.get('next')
+			return redirect(next_page) if next_page else redirect(url_for('home'))
 		else:
-			# login false
-			flash('logged in failed...','danger')
+			flash('login failed...','danger')
 	return render_template('login.html',title='login',form=form)
+
+@app.route("/logout")
+def logout():
+	logout_user()
+	return redirect(url_for('home'))
+
+@app.route("/account")
+@login_required
+def account():
+	return render_template('account.html',title='account')
+
+
+
+
+

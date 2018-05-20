@@ -149,19 +149,53 @@ the customeize validators is changed if the username is not equal the current_us
 
 ### route .py
 
-### def save_picture(form_pictrue) is added
-step1, generate a random hex code
-step2, get the file name by using os.path.splitext(form_picuture.filename)
-step3, set the file name variables to random_hex_code.ext that you get in step1,2
-step4, set the path by using os.path.join(app.root_path,path)
-step5, resize the pictures to 125x125 because the large pics will slow down the web and waste the space.
-Step6, from PIL import Image - it seems like this modules can not worked in my mac,pip3 install pillow==5.0.0 to install pre version
-Step7, open the picture file that we passed inside the function and resize it.
-Step8, return the filename
+#### def save_picture(form_pictrue) is added
+- step1, generate a random hex code
+- step2, get the file name by using os.path.splitext(form_picuture.filename)
+- step3, set the file name variables to random_hex_code.ext that you get in step1,2
+- step4, set the path by using os.path.join(app.root_path,path)
+- step5, resize the pictures to 125x125 because the large pics will slow down the web and waste the space.
+- Step6, from PIL import Image - it seems like this modules can not worked in my mac,pip3 install pillow==5.0.0 to install pre version
+- Step7, open the picture file that we passed inside the function and resize it.
+- Step8, return the filename
 
-### def account() is changed
+#### def account() is changed
 current_user.image_file=picture_fn to set the picture name to DB aslo.
 
 if the user reload the web,
 request.method =='GET': to get the request type
+
+## 08_create_update_delete_Post
+
+### forms.py
+- add PostForm,TextAreaField to let the user the enter their post.
+
+### home.html
+- delete all the dummy post.
+- display the dataformat to use strftime('%Y-%m-%d').
+- in the post title,href="{{url_for('post',post_id=post.id)}}" pass the id to route.py
+
+### post.html
+- this is the web page that for create the update/delete/view the own page.
+- src="{{ url_for('static',filename='profile_pics/'+post.author.image_file)}}" to load the user image file
+- if current user is equal to post user, then show the page
+- show the update and delete button
+- if delete button is pressed, use the bootstrap modal to make a confirm button.
+
+### route.py
+
+#### def post(post_id):
+- a function to return the post of the current id
+- if the user focely some link is not existed, /post/1234, return a 404
+
+#### def update_post(post_id):
+- if post is not in here, return 404
+- if the user tried to edit some post that not created to him/her, return 403
+- and also if the submit button pressed, update the db and flash
+- and also if the method is 'get', just return the post content.
+
+#### def delete_post(post_id):
+- if the user tried to delete some post that not created to him/her, return 403
+
+
 

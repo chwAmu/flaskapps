@@ -89,9 +89,9 @@ bcrypt.check_password_hash(hashed_pw,'testing')
 >>>True
 
 ### using the flask-login modules to control the login/logout function
-pip3 install flask-login
-from flask_login import LoginManager
-from flask_login import login_user,current_user,logout_user,login_required
+>pip3 install flask-login
+>from flask_login import LoginManager
+>from flask_login import login_user,current_user,logout_user,login_required
 
 -login_user to login
 -current_user to get the current user name
@@ -99,11 +99,11 @@ from flask_login import login_user,current_user,logout_user,login_required
 -login_required to protect the route can only aceess after login
 
 ### using flask request modules to get the parameters
-from flask import request
-before login if the guys try to access the account routes
-http://localhost:5000/login?next=%2Faccount
-we can just take the parameters 'next'
-next_page=request.args.get('next')
+ from flask import request
+ before login if the guys try to access the account routes
+ http://localhost:5000/login?next=%2Faccount
+ we can just take the parameters 'next'
+ next_page=request.args.get('next')
 
 not only just need to login and also assing the route of login
 login_manager.login_view='login'

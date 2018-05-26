@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content%}
+
+	<div id='frame-1'>
+		{%for i in range(data|length)%}
+			{%set d_id='p'+i|string%}
+			{%set draggable='draggable=true'%}
+			{%set ondragstart='ondragstart=ondragstart_handler(event,'+ d_id+')'%}
+			{%set ondrag='ondrag=ondrag_handler(event,"'+ d_id+'")'%}
+			{%set ondragend='ondragend=ondragend_handler(event,"'+ d_id+'")'%}
+			{%set onclick='onclick=selElement('+d_id+')'%}
+			{%set style='style=color:blue;position:absolute;top:'+data[i].y|string+'px;left:'+data[i].x|string+'px;'%}
+			<div id={{d_id}} {{style}} {{draggable}} {{ondragstart}} {{ondrag}} {{ondragend}} {{onclick}} >label_{{i}}</div>
+		{%endfor%}
+		
+
+	</div>
+
+
+
+
+	<div class='bottom_panel'>
+		<button class="btn-primary" data-toggle="tooltip" data-placement="bottom" title="save the current Layout" onclick="getAllElements()">
+		Save</button>
+		<button class="btn-warning" data-toggle="tooltip" data-placement="bottom" title="add a new Object" onclick="addElement()">Add</button>
+		<button class="btn-danger" data-toggle="tooltip" data-placement="bottom" title="delete an Object" onclick="delBtn()">Delete</button>
+
+	</div>
+{%endblock%}

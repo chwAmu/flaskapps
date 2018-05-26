@@ -58,8 +58,6 @@ class UpdateAccountForm(FlaskForm):
 			if email:
 				raise ValidationError('that email is taken.')
 
-
-
 class PostForm(FlaskForm):
 	title=StringField('Title',validators=[DataRequired()])
 	content=TextAreaField('Content',validators=[DataRequired()])

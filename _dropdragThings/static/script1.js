@@ -53,22 +53,35 @@ function getElemnts(ele){
 	dict['y']=ele.getBoundingClientRect().top;
 	dict['x']=ele.getBoundingClientRect().left;
 	list.push(dict)
+	return dict
 }
 
-function getAllElements(){
+function saveBtn(){
 
 	var n=document.getElementById('frame-1').children.length
-	for( var i=0; i<n ;i++){
-		ele=document.getElementById('p'+i);
-		getElemnts(ele);
-	}	
+	var datalist=counting('frame-1','div')
 
-	data = JSON.stringify(list)
+
+	var finallist=[]
+
+	ele=document.getElementById('frame-1');
+	console.log(ele.parentNode)
+
+	for( var i=0; i<datalist.length ;i++){
+		dict={}
+		console.log(datalist[i].id)
+		ele=document.getElementById(datalist[i].id);
+		console.log(ele)
+		dict=getElemnts(ele)
+		finallist.push(dict)
+	}	
+	console.log(finallist)
+
+	data = JSON.stringify(finallist)
 	var request = new XMLHttpRequest();
 	request.open('POST', '', true);
 	request.setRequestHeader('Content-Type', 'application/json','charset=UTF-8');
 	request.send(data);
-	list=[]
 
   	request.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -89,10 +102,10 @@ function getAllElements(){
 }
 
 function layoutReflash(jsonData){
-	console.log(jsonData[1].y)
-	console.log(jsonData.length)
+	var datalist=counting('frame-1','div')
+
 	for (var i=0;i<jsonData.length;i++){
-		ele=document.getElementById('p'+i)
+		ele=document.getElementById(datalist[i].id)
 		ele.style.top=jsonData[i].y
 		ele.style.lef=jsonData[i].x
 	}
@@ -117,6 +130,18 @@ function delBtn(){
 	}
 	console.log(delOperation)
 }
+
+function counting(id,cmd){
+	var mainf=document.getElementById(id)
+	var inMainf=mainf.getElementsByTagName(cmd)
+	idarray=[]
+	for (var i=0;i<inMainf.length;i++){
+			idarray.push(inMainf[i])
+	}
+	return idarray
+}
+
+
 
 
 $(document).ready(function(){

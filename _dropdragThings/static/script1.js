@@ -5,6 +5,7 @@ window.onload=load;
 delOperation=false
 selectingId=''
 
+
 function load(){
 	console.log('system is loaded..')
 }
@@ -59,13 +60,9 @@ function getElemnts(ele){
 function saveBtn(){
 
 	var n=document.getElementById('frame-1').children.length
-	var datalist=counting('frame-1','div')
-
+	var datalist=countingclass('tagElements')
 
 	var finallist=[]
-
-	ele=document.getElementById('frame-1');
-	console.log(ele.parentNode)
 
 	for( var i=0; i<datalist.length ;i++){
 		dict={}
@@ -102,7 +99,7 @@ function saveBtn(){
 }
 
 function layoutReflash(jsonData){
-	var datalist=counting('frame-1','div')
+	var datalist=countingclass('tagElements')
 
 	for (var i=0;i<jsonData.length;i++){
 		ele=document.getElementById(datalist[i].id)
@@ -113,12 +110,9 @@ function layoutReflash(jsonData){
 }
 
 function selElement(id){
-	console.log(id.id)
-	if (delOperation){
-		ele=document.getElementById(id.id)
-		ele.parentNode.removeChild(ele)
-	}
 
+	ele=document.getElementById(id.id)
+	ele.parentNode.removeChild(ele)
 }
 
 function delBtn(){
@@ -141,10 +135,34 @@ function counting(id,cmd){
 	return idarray
 }
 
+function countingclass(className){
+	var ele=document.getElementsByClassName(className)
+	return ele
+}
+
+function bthClick(eleId){
+	ele=document.getElementById(eleId.id)
+	selElement(selectingId)
+}
 
 
+function popupTrigger(eleId){
+	selectingId=eleId
+}
+
+// Bootstrap’s js
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
 });
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('Operation of Object ' + recipient)
+  // modal.find('.modal-body input').val(recipient)
+})
 

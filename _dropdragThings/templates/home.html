@@ -13,10 +13,9 @@
 			{{style}} {{draggable}} {{ondragstart}} {{ondrag}} {{ondragend}} >
 
 				<table class="table table-bordered ">
-					<thead>
+					<thead class="table-primary" colspan="2">
 						<tr>
-							<th>tag name..</th>
-							<th>			<button type="button" id="popup_{{d_id}}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="{{d_id}}" onclick="popupTrigger( {{d_id}} )">...</button>	</th>
+							<th colspan="2">tag name..<button type="button" id="popup_{{d_id}}" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal" data-whatever="{{d_id}}" onclick="popupTrigger( {{d_id}} )">...</button></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -24,44 +23,47 @@
 							<td>tag_node</td>
 							<td>value</td>
 						</tr>
-						<tr>
-							<td>tag_node</td>
-							<td>value</td>
-						</tr>
-
-						<tr>
-							<td>
-												<!-- Modal -->
-
-
-			</table>
-							</td>
-						</tr>
-
 					</tbody>
-
-
-
-
-
-				
+				</table>
+			
 	</div>
 		{%endfor%}
-		
-
 		{% include 'popup.html'%}
-
 	</div>
 
-
+	
 
 
 	<div class='bottom_panel'>
-		<button class="btn-primary" data-toggle="tooltip" data-placement="bottom" title="save the current Layout" onclick="saveBtn()">
+
+<div class="accordion" id="accordionExample">
+  <div>
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Operation Panel
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+    
+  					<button class="btn-primary" data-toggle="tooltip" data-placement="bottom" title="save the current Layout" onclick="saveBtn()">
 		Save</button>
 		<button class="btn-warning" data-toggle="tooltip" data-placement="bottom" title="add a new Object" onclick="addElement()">Add</button>
 		<button class="btn-danger" data-toggle="tooltip" data-placement="bottom" title="delete an Object" onclick="delBtn()">Delete</button>
 				<button class="btn-danger" data-toggle="tooltip" data-placement="bottom" title="delete an Object" onclick="countingclass('tagElements')">Testing</button>
+    
+    </div>
+  </div>
+  </div>
+
+
+
+
 
 	</div>
+
+
+
 {%endblock%}

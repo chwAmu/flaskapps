@@ -2,17 +2,27 @@ list=[]
 
 window.onload=load;
 
+function reloadPage() {
+    location.reload();
+}
+
 delOperation=false
 selectingId=''
-
+var offX=0
+var offY=0
+var offXY=[]
 
 function load(){
 	console.log('system is loaded..')
 }
 
-function ondragstart_handler(ev){	
-	console.log('start to drag..')
+function ondragstart_handler(event){	
+	var style = window.getComputedStyle(event.target, null);
+    var str = (parseInt(style.getPropertyValue("left")) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top")) - event.clientY);
+    offXY.push(parseInt(style.getPropertyValue("left")) - event.clientX)
+    offXY.push(parseInt(style.getPropertyValue("top")) - event.clientY)
 }
+
 
 function ondrag_handler(ev,id) {
 	// console.log('drapping...')
@@ -24,25 +34,28 @@ function ondrag_handler(ev,id) {
 }
 
 
-function ondragend_handler(ev,id){
-	// console.log('drapping end..')
-	var ele=document.getElementById(ev.target.id);
-	ele.style.top=ev.y+'px';
-	ele.style.left=ev.x+'px';
-	ele.style.display='Block';
+function ondragend_handler(event,id){
+	var offset = event.dataTransfer.getData("text").split(',');
+    var dm = document.getElementById(id);
+    dm.style.left = (event.clientX + offXY[0] )+ 'px';
+    dm.style.top = (event.clientY + offXY[1]) + 'px';
+ 	dm.style.display='Block'
+
+    event.preventDefault();
+    return false;
 	
 }
 
 function addElement(){
 	var ne=document.createElement('div')
-	var nc=document.createTextNode('newtag_'+getElementLength())
+	// var nc=document.createTextNode('newtag_'+getElementLength())
 	ne.id='p'+getElementLength()
-	ne.appendChild(nc)
-
+	// ne.appendChild(nc)
 	var currentDiv=document.getElementById('frame-1')
-	// document.body.appendChild(ne,currentDiv)
 	currentDiv.appendChild(ne)
-	console.log(getElementLength())
+	ne.className='tagElements'
+	saveBtn()	
+	reloadPage()
 }
 
 function getElementLength(){
@@ -57,6 +70,7 @@ function getElemnts(ele){
 	return dict
 }
 
+// save
 function saveBtn(){
 
 	var n=document.getElementById('frame-1').children.length
@@ -140,11 +154,14 @@ function countingclass(className){
 	return ele
 }
 
-function bthClick(eleId){
+function popupDelOper(eleId){
 	ele=document.getElementById(eleId.id)
 	selElement(selectingId)
 }
 
+function popEditOper(eleId){
+	// selElement(selectingId)
+}
 
 function popupTrigger(eleId){
 	selectingId=eleId

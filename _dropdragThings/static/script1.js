@@ -159,8 +159,13 @@ function popupDelOper(eleId){
 	selElement(selectingId)
 }
 
+// edit popup
 function popEditOper(eleId){
 	// selElement(selectingId)
+	ele=document.getElementById(eleId.id)
+	console.log(selectingId)
+	var x=document.getElementById(selectingId.id+"_tag_header")
+	console.log(x)
 }
 
 function popupTrigger(eleId){

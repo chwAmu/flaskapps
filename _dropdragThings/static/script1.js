@@ -64,8 +64,11 @@ function getElementLength(){
 
 function getElemnts(ele){
 	dict={}
-	dict['y']=ele.getBoundingClientRect().top;
-	dict['x']=ele.getBoundingClientRect().left;
+	dict['y']= document.getElementById(ele).getBoundingClientRect().top
+	dict['x']=document.getElementById(ele).getBoundingClientRect().left
+	x=document.getElementById(ele+"_tag_header").getElementsByTagName('span')
+	dict['tagname']=x[0].innerHTML
+	dict['tagnode']=document.getElementById(ele+"_tag_node").innerHTML
 	list.push(dict)
 	return dict
 }
@@ -83,7 +86,7 @@ function saveBtn(){
 		console.log(datalist[i].id)
 		ele=document.getElementById(datalist[i].id);
 		console.log(ele)
-		dict=getElemnts(ele)
+		dict=getElemnts(datalist[i].id)
 		finallist.push(dict)
 	}	
 	console.log(finallist)
@@ -163,13 +166,21 @@ function popupDelOper(eleId){
 function popEditOper(eleId){
 	// selElement(selectingId)
 	ele=document.getElementById(eleId.id)
-	console.log(selectingId)
-	var x=document.getElementById(selectingId.id+"_tag_header")
-	console.log(x)
+	var x=document.getElementById(selectingId.id+"_tag_header").getElementsByTagName('span')
+	var y=document.getElementById(selectingId.id+"_tag_node")
+	x[0].innerHTML=document.getElementById('tag-name').value
+	y.innerHTML=document.getElementById('node-name').value
 }
+
 
 function popupTrigger(eleId){
 	selectingId=eleId
+	var x=document.getElementById(selectingId.id+"_tag_header").getElementsByTagName('span')
+	var y=document.getElementById(selectingId.id+"_tag_node")
+	var tag_name=document.getElementById('tag-name')
+	var node_name=document.getElementById('node-name')
+	tag_name.value=x[0].innerHTML
+	node_name.value=y.innerHTML
 }
 
 // Bootstrap’s js

@@ -20,8 +20,8 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td id={{d_id}}_tag_node>tag_node</td>
-							<td id={{d_id}}_tag_value>value</td>
+							<td id={{d_id}}_tag_node>{{data[i].tagname}}</td>
+							<td id={{d_id}}_tag_value>{{data[i].tagnode}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -47,9 +47,7 @@
     </div>
 
     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-    
-  					<button class="btn-primary" data-toggle="tooltip" data-placement="bottom" title="save the current Layout" onclick="saveBtn()">
-		Save</button>
+		<button class="btn-primary" data-toggle="tooltip" data-placement="bottom" title="save the current Layout" onclick="saveBtn()">Save</button>
 		<button class="btn-warning" data-toggle="tooltip" data-placement="bottom" title="add a new Object" onclick="addElement()">Add</button>
 		<button class="btn-danger" data-toggle="tooltip" data-placement="bottom" title="delete an Object" onclick="delBtn()">Delete</button>
 				<button class="btn-danger" data-toggle="tooltip" data-placement="bottom" title="delete an Object" onclick="countingclass('tagElements')">Testing</button>

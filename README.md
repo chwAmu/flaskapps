@@ -225,6 +225,7 @@ request.method =='GET': to get the request type
 - in the home route, page=request.args.get('page',1,type=int) to get hte req paras,default=1 and type must be in int
 - posts=Post.query.paginate(page=page,per_page=5) to paginate the posts in each pages of 5
 - you can use http://127.0.0.1:5000/?page=2 <-- the ?page=?? will auto route it.
+- add a new route that receive the user name
 
 ### home.html
 - loop the post item only.

@@ -11,8 +11,9 @@ from PIL import Image
 @app.route("/home")
 def home():
 	# using paginate method
+	# reorder the display order
 	page=request.args.get('page',1,type=int)
-	posts=Post.query.paginate(page=page,per_page=5)
+	posts=Post.query.order_by(Post.date_posted.desc()).paginate(page=page,per_page=5)
 	return render_template('home.html',posts=posts)
 
 @app.route("/about")
@@ -153,8 +154,16 @@ def delete_post(post_id):
 	flash('your post is deleted','success')
 	return redirect(url_for('home'))
 
-
-
+@app.route("/user/<string:username>")
+def user_post(username):
+	# using paginate method
+	# reorder the display order
+	page=request.args.get('page',1,type=int)
+	user=User.query.filter_by(username=username).first_or_404()
+	posts=Post.query.filter_by(author=user)\
+		.order_by(Post.date_posted.desc())\
+		.paginate(page=page,per_page=5)
+	return render_template('user_posts.html',posts=posts,user=user)
 
 
 
